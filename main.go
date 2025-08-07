@@ -31,14 +31,6 @@ func aboutHandlar(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "I'm Habi.., a student")
 }
 
-type Product struct {
-	ID          int     `json:"_id"`
-	Title       string  `json:"title"`
-	Description string  `json:"description"`
-	Price       float64 `json:"price"`
-	ImgURL      string  `json:"imageUrl"`
-}
-
 var productList []Product
 
 /*
@@ -90,30 +82,6 @@ var productList []Product
 
 */
 
-func getProducts(w http.ResponseWriter, r *http.Request) {
-	sendData(w, productList, 200)
-}
-
-func createProduct(w http.ResponseWriter, r *http.Request) {
-
-	var newProduct Product
-
-	decoder := json.NewDecoder(r.Body)
-	err := decoder.Decode(&newProduct)
-
-	if err != nil {
-		fmt.Println(err)
-		http.Error(w, "Plz give me valid JSON data", 400)
-		return
-	}
-
-	newProduct.ID = len(productList) + 1
-	productList = append(productList, newProduct)
-
-	sendData(w, newProduct, 201)
-
-}
-
 /*  previous
 
 func handleCors(w http.ResponseWriter) {
@@ -140,7 +108,7 @@ func sendData(w http.ResponseWriter, data interface{}, statusCode int) {
 func main() {
 	mux := http.NewServeMux()
 
-	muxRouter := globalRouter(mux)
+	muxRouter := GlobalRouter(mux)
 
 	/*
 
@@ -211,20 +179,4 @@ func init() {
 	}
 
 	productList = append(productList, prd1, prd2, prd3, prd4, prd5)
-}
-
-func globalRouter(mux *http.ServeMux) http.Handler {
-	handleAllRequest := func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Content-Type", "application/json")
-		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Habib") // preflight request wiht OPTIONS
-
-		if r.Method == "OPTIONS" {
-			w.WriteHeader(200)
-			return
-		}
-		mux.ServeHTTP(w, r)
-	}
-	return http.HandlerFunc(handleAllRequest)
 }
