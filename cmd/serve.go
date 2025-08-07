@@ -15,9 +15,8 @@ func Serve() {
 	muxRouter := middleware.GlobalRouter(mux)
 
 	mux.Handle("GET /products", http.HandlerFunc(handlers.GetProducts))
-	mux.Handle("GET /hello", http.HandlerFunc(handlers.HelloHandlar))
-	mux.Handle("GET /about", http.HandlerFunc(handlers.AboutHandlar))
-	mux.Handle("POST /add-product", http.HandlerFunc(handlers.CreateProduct))
+	mux.Handle("POST /products", http.HandlerFunc(handlers.CreateProduct))
+	mux.Handle("GET /products/{id}", http.HandlerFunc(handlers.GetProductById))
 
 	fmt.Println("server running on: 8080")
 

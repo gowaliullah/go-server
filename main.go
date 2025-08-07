@@ -22,4 +22,6 @@ func main() {
 
 	NIC  electromagnatic kore router ar kase patai
 
+	entity gulai muloto resourse hoy
+
 */
