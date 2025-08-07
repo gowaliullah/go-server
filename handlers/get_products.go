@@ -3,9 +3,10 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/gowaliullah/ecommerce/middleware"
+	"github.com/gowaliullah/ecommerce/database"
+	"github.com/gowaliullah/ecommerce/util"
 )
 
 func GetProducts(w http.ResponseWriter, r *http.Request) {
-	middleware.SendData(w, productList, 200)
+	util.SendData(w, database.ProductList, 200)
 }

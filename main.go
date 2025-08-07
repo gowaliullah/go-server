@@ -1,78 +1,12 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
-
-	"github.com/gowaliullah/ecommerce/handlers"
-	"github.com/gowaliullah/ecommerce/middleware"
-	"github.com/gowaliullah/ecommerce/models"
+	"github.com/gowaliullah/ecommerce/cmd"
 )
 
-var productList []models.Product
-
 func main() {
-	mux := http.NewServeMux()
+	cmd.Serve()
 
-	muxRouter := middleware.GlobalRouter(mux)
-
-	mux.Handle("GET /products", http.HandlerFunc(handlers.GetProducts))
-	mux.Handle("GET /hello", http.HandlerFunc(handlers.HelloHandlar))
-	mux.Handle("GET /about", http.HandlerFunc(handlers.AboutHandlar))
-	mux.Handle("POST /add-product", http.HandlerFunc(handlers.CreateProduct))
-
-	fmt.Println("server running on: 8080")
-
-	err := http.ListenAndServe(":8080", muxRouter)
-
-	if err != nil {
-		fmt.Println("Error: ", err)
-	}
-
-}
-
-func init() {
-	prd1 := models.Product{
-		ID:          1,
-		Title:       "Orange",
-		Description: "It's very delicious and full of vitamin C.",
-		Price:       108.00,
-		ImgURL:      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnzv3PeLyF9-dxIj0MGIabXMKYA6CFTB-0OA&s",
-	}
-
-	prd2 := models.Product{
-		ID:          2,
-		Title:       "Apple",
-		Description: "Crisp and sweet red apples.",
-		Price:       120.50,
-		ImgURL:      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnzv3PeLyF9-dxIj0MGIabXMKYA6CFTB-0OA&s",
-	}
-
-	prd3 := models.Product{
-		ID:          3,
-		Title:       "Banana",
-		Description: "Rich in potassium and easy to digest.",
-		Price:       60.00,
-		ImgURL:      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnzv3PeLyF9-dxIj0MGIabXMKYA6CFTB-0OA&s",
-	}
-
-	prd4 := models.Product{
-		ID:          4,
-		Title:       "Mango",
-		Description: "The king of fruits, sweet and juicy.",
-		Price:       150.75,
-		ImgURL:      "https://example.com/images/mango.jpg",
-	}
-
-	prd5 := models.Product{
-		ID:          5,
-		Title:       "Watermelon",
-		Description: "Refreshing and hydrating summer fruit.",
-		Price:       200.00,
-		ImgURL:      "https://example.com/images/watermelon.jpg",
-	}
-
-	productList = append(productList, prd1, prd2, prd3, prd4, prd5)
 }
 
 /*

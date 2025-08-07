@@ -5,15 +5,13 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gowaliullah/ecommerce/middleware"
-	"github.com/gowaliullah/ecommerce/models"
+	"github.com/gowaliullah/ecommerce/database"
+	"github.com/gowaliullah/ecommerce/util"
 )
-
-var productList []models.Product
 
 func CreateProduct(w http.ResponseWriter, r *http.Request) {
 
-	var newProduct models.Product
+	var newProduct database.Product
 
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&newProduct)
@@ -24,9 +22,9 @@ func CreateProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	newProduct.ID = len(productList) + 1
-	productList = append(productList, newProduct)
+	newProduct.ID = len(database.ProductList) + 1
+	database.ProductList = append(database.ProductList, newProduct)
 
-	middleware.SendData(w, newProduct, 201)
+	util.SendData(w, newProduct, 201)
 
 }
