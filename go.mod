@@ -1,4 +1,3 @@
-module ecommerce
+module github.com/gowaliullah/ecommerce
 
-go 1.22.3
- 
+go 1.22.2

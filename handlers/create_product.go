@@ -1,14 +1,19 @@
-package main
+package handlers
 
 import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/gowaliullah/ecommerce/middleware"
+	"github.com/gowaliullah/ecommerce/models"
 )
 
-func createProduct(w http.ResponseWriter, r *http.Request) {
+var productList []models.Product
 
-	var newProduct Product
+func CreateProduct(w http.ResponseWriter, r *http.Request) {
+
+	var newProduct models.Product
 
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&newProduct)
@@ -22,6 +27,6 @@ func createProduct(w http.ResponseWriter, r *http.Request) {
 	newProduct.ID = len(productList) + 1
 	productList = append(productList, newProduct)
 
-	sendData(w, newProduct, 201)
+	middleware.SendData(w, newProduct, 201)
 
 }
