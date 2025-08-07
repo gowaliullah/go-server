@@ -91,13 +91,10 @@ var productList []Product
 */
 
 func getProducts(w http.ResponseWriter, r *http.Request) {
-	handlePreFlight(w, r)
-
 	sendData(w, productList, 200)
 }
 
 func createProduct(w http.ResponseWriter, r *http.Request) {
-	handlePreFlight(w, r)
 
 	var newProduct Product
 
@@ -156,7 +153,7 @@ func main() {
 
 	// mux.Handle("GET /products", http.HandlerFunc(getProducts))
 
-	mux.Handle("GET /products", corsMiddleware(http.HandlerFunc(getProducts)))
+	mux.Handle("GET /products", http.HandlerFunc(getProducts))
 
 	mux.Handle("GET /hello", http.HandlerFunc(helloHandlar))
 	mux.Handle("GET /about", http.HandlerFunc(helloHandlar))
@@ -216,32 +213,18 @@ func init() {
 	productList = append(productList, prd1, prd2, prd3, prd4, prd5)
 }
 
-func corsMiddleware(next http.Handler) http.Handler {
-	handleCors := func(w http.ResponseWriter, r *http.Request) {
+func globalRouter(mux *http.ServeMux) http.Handler {
+	handleAllRequest := func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Content-Type", "application/json")
 		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS")
 		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Habib") // preflight request wiht OPTIONS
 
-		next.ServeHTTP(w, r)
-	}
-	handler := http.HandlerFunc(handleCors)
-	return handler
-}
-
-func globalRouter(mux *http.ServeMux) http.Handler {
-	handleAllRequest := func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "OPTIONS" {
-			w.Header().Set("Access-Control-Allow-Origin", "*")
-			w.Header().Set("Content-Type", "application/json")
-			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS")
-			w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Habib") // preflight request wiht OPTIONS
-
 			w.WriteHeader(200)
-		} else {
-			mux.ServeHTTP(w, r)
+			return
 		}
+		mux.ServeHTTP(w, r)
 	}
-
 	return http.HandlerFunc(handleAllRequest)
 }
