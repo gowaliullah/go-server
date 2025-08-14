@@ -12,11 +12,11 @@ func Serve() {
 
 	mux := http.NewServeMux()
 
-	mux.Handle("GET /habib", middleware.Logger(http.HandlerFunc(handlers.Test)))
+	mux.Handle("GET /habib", middleware.Hudai(middleware.Logger(http.HandlerFunc(handlers.Test))))
 
-	mux.Handle("GET /products", middleware.Logger(http.HandlerFunc(handlers.GetProducts)))
-	mux.Handle("POST /products", middleware.Logger(http.HandlerFunc(handlers.CreateProduct)))
-	mux.Handle("GET /products/{id}", middleware.Logger(http.HandlerFunc(handlers.GetProductById)))
+	mux.Handle("GET /products", middleware.Hudai(middleware.Logger(http.HandlerFunc(handlers.GetProducts))))
+	mux.Handle("POST /products", middleware.Hudai(middleware.Logger(http.HandlerFunc(handlers.CreateProduct))))
+	mux.Handle("GET /products/{id}", middleware.Hudai(middleware.Logger(http.HandlerFunc(handlers.GetProductById))))
 
 	muxRouter := middleware.GlobalRouter(mux)
 	fmt.Println("server running on: 8080")
