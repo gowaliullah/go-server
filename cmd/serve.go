@@ -12,12 +12,15 @@ func Serve() {
 
 	mux := http.NewServeMux()
 
-	muxRouter := middleware.GlobalRouter(mux)
+	handle := http.HandlerFunc(handlers.Test)
+
+	mux.Handle("GET /habib", middleware.Logger(handle))
 
 	mux.Handle("GET /products", http.HandlerFunc(handlers.GetProducts))
 	mux.Handle("POST /products", http.HandlerFunc(handlers.CreateProduct))
 	mux.Handle("GET /products/{id}", http.HandlerFunc(handlers.GetProductById))
 
+	muxRouter := middleware.GlobalRouter(mux)
 	fmt.Println("server running on: 8080")
 
 	err := http.ListenAndServe(":8080", muxRouter)
