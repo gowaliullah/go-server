@@ -18,7 +18,7 @@ func (mngr *Manager) Use(middlewares ...Middleware) {
 	mngr.globalMiddlewares = append(mngr.globalMiddlewares, middlewares...)
 }
 
-func (mngr *Manager) With(next http.Handler, middlewares ...Manager) http.Handler {
+func (mngr *Manager) With(next http.Handler, middlewares ...Middleware) http.Handler {
 	n := next
 
 	for _, middleware := range middlewares {
