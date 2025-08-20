@@ -16,7 +16,7 @@ func Serve() {
 
 	initRoutes(mux, manager)
 
-	muxRouter := middleware.GlobalRouter(mux)
+	muxRouter := middleware.CorsWithPreflight(mux)
 	fmt.Println("server running on: 8080")
 	err := http.ListenAndServe(":8080", muxRouter)
 	if err != nil {
