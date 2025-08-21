@@ -18,17 +18,35 @@ func (mngr *Manager) Use(middlewares ...Middleware) {
 	mngr.globalMiddlewares = append(mngr.globalMiddlewares, middlewares...)
 }
 
-func (mngr *Manager) With(next http.Handler, middlewares ...Middleware) http.Handler {
-	n := next
+func (mngr *Manager) With(handlar http.Handler, middlewares ...Middleware) http.Handler {
+	h := handlar
 
 	for _, middleware := range middlewares {
-		n = middleware(n)
+		h = middleware(h)
 	}
 
+	// [logger, hudai, corsWithPreflight]
+	// logger(mux))
+	// hudai(logger(mux)))
+	// corsWithPreflight(hudai(logger(mux))))
 	for _, globalMiddleware := range mngr.globalMiddlewares {
-		n = globalMiddleware(n)
+		h = globalMiddleware(h)
 	}
 
-	return n
+	return h
+
+}
+
+func (mngr *Manager) WrapMux(handlar http.Handler, middlewares ...Middleware) http.Handler {
+	h := handlar
+	for _, middleware := range middlewares {
+		h = middleware(h)
+	}
+	// [logger, hudai, corsWithPreflight]
+	// logger(mux))
+	// hudai(logger(mux)))
+	// corsWithPreflight(hudai(logger(mux))))
+
+	return h
 
 }
