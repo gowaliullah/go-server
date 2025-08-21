@@ -10,14 +10,12 @@ import (
 func Serve() {
 
 	manager := middleware.NewManager()
-	manager.Use(middleware.Logger, middleware.Hudai)
-
 	mux := http.NewServeMux()
 
-	initRoutes(mux, manager)
-
 	// muxRouter := middleware.CorsWithPreflight(mux)
-	wrappedMux := manager.WrapMux(mux)
+	wrappedMux := manager.WrapMux(mux, middleware.Logger, middleware.Hudai)
+
+	initRoutes(mux, manager)
 
 	fmt.Println("server running on: 8080")
 	err := http.ListenAndServe(":8080", wrappedMux)
