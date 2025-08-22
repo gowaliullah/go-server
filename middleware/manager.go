@@ -25,28 +25,14 @@ func (mngr *Manager) With(handlar http.Handler, middlewares ...Middleware) http.
 		h = middleware(h)
 	}
 
-	// [logger, hudai, corsWithPreflight]
-	// logger(mux))
-	// hudai(logger(mux)))
-	// corsWithPreflight(hudai(logger(mux))))
-	for _, globalMiddleware := range mngr.globalMiddlewares {
-		h = globalMiddleware(h)
-	}
-
 	return h
-
 }
 
-func (mngr *Manager) WrapMux(middlewares []Middleware, handlar http.Handler) http.Handler {
+func (mngr *Manager) WrapMux(handlar http.Handler) http.Handler {
 	h := handlar
-	for _, middleware := range middlewares {
+	for _, middleware := range mngr.globalMiddlewares {
 		h = middleware(h)
 	}
-	// [logger, hudai, corsWithPreflight]
-	// logger(mux))
-	// hudai(logger(mux)))
-	// corsWithPreflight(hudai(logger(mux))))
 
 	return h
-
 }
