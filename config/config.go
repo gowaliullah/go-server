@@ -3,12 +3,13 @@ package config
 import (
 	"log"
 	"os"
+	"strconv"
 )
 
 type Config struct {
 	Version     string
 	ServiceName string
-	HttpPort    int
+	HttpPort    int64
 }
 
 func LoadConfig() {
@@ -28,6 +29,18 @@ func LoadConfig() {
 	if httpPort == "" {
 		log.Fatal("http port is required")
 		os.Exit(1)
+	}
+
+	port, err := strconv.ParseInt(httpPort, 10, 64)
+	if err != nil {
+		log.Fatal("post must be a number")
+		os.Exit(1)
+	}
+
+	cnf := Config{
+		Version:     version,
+		ServiceName: serviceName,
+		HttpPort:    port,
 	}
 
 }
