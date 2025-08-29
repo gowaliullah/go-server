@@ -6,6 +6,8 @@ import (
 	"strconv"
 )
 
+var config Config
+
 type Config struct {
 	Version     string
 	ServiceName string
@@ -37,7 +39,7 @@ func LoadConfig() {
 		os.Exit(1)
 	}
 
-	cnf := Config{
+	config = Config{
 		Version:     version,
 		ServiceName: serviceName,
 		HttpPort:    port,
