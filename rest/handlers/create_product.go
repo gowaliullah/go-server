@@ -22,6 +22,8 @@ func CreateProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	util.SendData(w, newProduct, 201)
+	createdProduct := database.Store(newProduct)
+
+	util.SendData(w, createdProduct, http.StatusCreated)
 
 }
