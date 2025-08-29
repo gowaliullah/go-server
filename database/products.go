@@ -18,6 +18,19 @@ func List() []Product {
 	return productList
 }
 
+func Get(prdId int) *Product {
+	for _, product := range productList {
+		if product.ID == prdId {
+			return &product
+		}
+	}
+	return nil
+}
+
+func Update() {
+
+}
+
 func init() {
 	prd1 := Product{
 		ID:          1,
