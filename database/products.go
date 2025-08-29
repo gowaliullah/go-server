@@ -1,6 +1,6 @@
 package database
 
-var ProductList []Product
+var productList []Product
 
 type Product struct {
 	ID          int     `json:"_id"`
@@ -8,6 +8,14 @@ type Product struct {
 	Description string  `json:"description"`
 	Price       float64 `json:"price"`
 	ImgURL      string  `json:"imageUrl"`
+}
+
+func Store(p Product) {
+	productList = append(productList, p)
+}
+
+func List() []Product {
+	return productList
 }
 
 func init() {
@@ -51,5 +59,5 @@ func init() {
 		ImgURL:      "https://example.com/images/watermelon.jpg",
 	}
 
-	ProductList = append(ProductList, prd1, prd2, prd3, prd4, prd5)
+	productList = append(productList, prd1, prd2, prd3, prd4, prd5)
 }
