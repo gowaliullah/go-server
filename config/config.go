@@ -14,7 +14,7 @@ type Config struct {
 	HttpPort    int64
 }
 
-func LoadConfig() {
+func loadConfig() {
 	version := os.Getenv("VERSION")
 	if version == "" {
 		log.Fatal("version is required")
@@ -45,4 +45,9 @@ func LoadConfig() {
 		HttpPort:    port,
 	}
 
+}
+
+func GetCConfig() Config {
+	loadConfig()
+	return config
 }
