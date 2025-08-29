@@ -27,8 +27,12 @@ func Get(prdId int) *Product {
 	return nil
 }
 
-func Update() {
-
+func Update(prd Product) {
+	for idx, p := range productList {
+		if p.ID == prd.ID {
+			productList[idx] = prd
+		}
+	}
 }
 
 func init() {
