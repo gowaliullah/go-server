@@ -10,8 +10,10 @@ type Product struct {
 	ImgURL      string  `json:"imageUrl"`
 }
 
-func Store(p Product) {
+func Store(p Product) Product {
+	p.ID = len(productList) + 1
 	productList = append(productList, p)
+	return p
 }
 
 func List() []Product {
