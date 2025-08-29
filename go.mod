@@ -2,4 +2,7 @@ module github.com/gowaliullah/ecommerce
 
 go 1.22.2
 
-require github.com/lpernett/godotenv v0.0.0-20230527005122-0de1d4c5ef5e // indirect
+require (
+	github.com/joho/godotenv v1.5.1 // indirect
+	github.com/lpernett/godotenv v0.0.0-20230527005122-0de1d4c5ef5e // indirect
+)

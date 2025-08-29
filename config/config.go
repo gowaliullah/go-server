@@ -1,9 +1,12 @@
 package config
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"strconv"
+
+	"github.com/joho/godotenv"
 )
 
 var config Config
@@ -15,6 +18,13 @@ type Config struct {
 }
 
 func loadConfig() {
+
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println("Fail to load .env variables: ", err)
+		os.Exit(1)
+	}
+
 	version := os.Getenv("VERSION")
 	if version == "" {
 		log.Fatal("version is required")
