@@ -1,18 +1,13 @@
 package main
 
 import (
-	"fmt"
-
-	"github.com/gowaliullah/ecommerce/config"
+	"github.com/gowaliullah/ecommerce/cmd"
 	"github.com/gowaliullah/ecommerce/database"
 )
 
 func main() {
 
-	cnf := config.GetCConfig()
-	fmt.Println(cnf)
-
-	// cmd.Serve()
+	cmd.Serve()
 
 }
 
