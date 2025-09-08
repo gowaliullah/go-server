@@ -10,7 +10,7 @@ import (
 )
 
 func CreateUser(w http.ResponseWriter, r *http.Request) {
-	var newUser database.user
+	var newUser database.User
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&newUser)
 
@@ -20,7 +20,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	createdUser := database.Store(newUser)
+	createdUser := newUser.Store()
 
 	util.SendData(w, createdUser, http.StatusCreated)
 

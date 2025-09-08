@@ -12,6 +12,12 @@ type User struct {
 var users []User
 
 func (u User) Store() User {
+	if u.ID != 0 {
+		return u
+	}
+
+	u.ID = len(users) + 1
+
 	users = append(users, u)
 	return u
 }
