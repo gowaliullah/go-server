@@ -32,7 +32,7 @@ func Get(prdId int) *Product {
 func Update(prd Product) {
 	for idx, p := range productList {
 		if p.ID == prd.ID {
-			productList[idx] = prd
+			productList[idx] = prd // productList[0]
 		}
 	}
 }

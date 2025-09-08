@@ -7,7 +7,7 @@ import (
 
 func Serve() {
 
-	cnf := config.GetCConfig()
+	cnf := config.GetConfig()
 
 	rest.Start(cnf)
 
