@@ -1,12 +1,36 @@
 package main
 
 import (
-	"github.com/gowaliullah/ecommerce/cmd"
+	"crypto/sha256"
+	"fmt"
 )
 
 func main() {
 
-	cmd.Serve()
+	// cmd.Serve()
+	practice()
+
+}
+
+func practice() {
+
+	/*
+		var s string
+		s = "0h"
+		byteArr := []byte(s)
+
+		fmt.Println(s)
+		fmt.Println(byteArr)
+
+		enc := base64.URLEncoding.WithPadding(base64.NoPadding)
+		b64Str := enc.EncodeToString(byteArr)
+
+		fmt.Println(b64Str)
+	*/
+
+	data := []byte("Hello")
+	hash := sha256.Sum256(data)
+	fmt.Println(hash)
 
 }
 

@@ -30,5 +30,5 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Invalid credentials", http.StatusBadRequest)
 	}
 
-	util.SendData(w, usr, http.StatusCreated)
+	util.SendData(w, usr, http.StatusOK)
 }
