@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/hmac"
 	"crypto/sha256"
 	"fmt"
 )
@@ -28,9 +29,21 @@ func practice() {
 		fmt.Println(b64Str)
 	*/
 
-	data := []byte("Hello")
-	hash := sha256.Sum256(data)
-	fmt.Println(hash)
+	/*
+		data := []byte("Hello")
+		hash := sha256.Sum256(data)
+		fmt.Println(hash)
+	*/
+
+	secret := []byte("my-secret")
+	message := []byte("Hello World")
+
+	h := hmac.New(sha256.New, secret)
+	h.Write(message)
+
+	text := h.Sum(nil)
+
+	fmt.Println(text)
 
 }
 
