@@ -5,11 +5,13 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/gowaliullah/ecommerce/database"
 	"github.com/gowaliullah/ecommerce/util"
 )
 
 type ReqLogin struct {
-	Email
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
@@ -23,8 +25,10 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	createdUser := newUser.Store()
+	usr := database.Find(reqLogin.Email, reqLogin.Password)
+	if err == nil {
+		http.Error(w, "Invalid credentials", http.StatusBadRequest)
+	}
 
-	util.SendData(w, createdUser, http.StatusCreated)
-
+	util.SendData(w, usr, http.StatusCreated)
 }
