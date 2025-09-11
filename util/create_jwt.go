@@ -1,6 +1,8 @@
 package util
 
 import (
+	"crypto/hmac"
+	"crypto/sha256"
 	"encoding/base64"
 	"encoding/json"
 )
@@ -18,7 +20,7 @@ type Payload struct {
 	IsShopOwner bool   `json:"is_shop_owner"`
 }
 
-func CreateJWT(data Payload) (string, error) {
+func CreateJWT(secret string, data Payload) (string, error) {
 	header := Header{
 		Alg: "HS256",
 		Typ: "JWT",
@@ -37,6 +39,18 @@ func CreateJWT(data Payload) (string, error) {
 	}
 
 	paylodB64 := base64UrlEncode(byteArrData)
+
+	message := hearderB64 + "." + paylodB64
+
+	byteArrSecret := []byte(secret)
+	byteArrMsg := []byte(message)
+
+	h := hmac.New(sha256.New, byteArrSecret)
+	h.Write(byteArrMsg)
+
+	signature := h.Sum(nil)
+	signatureB64 := base64UrlEncode(signature)
+
 }
 
 func base64UrlEncode(data []byte) string {
