@@ -1,6 +1,9 @@
 package util
 
-import "encoding/json"
+import (
+	"encoding/base64"
+	"encoding/json"
+)
 
 type Header struct {
 	Alg string `json:"alg"`
@@ -30,4 +33,8 @@ func CreateJWT(data Payload) (string, error) {
 	if err != nil {
 		return "", err
 	}
+}
+
+func base64UrlEncode(data []byte) string {
+	return base64.URLEncoding.WithPadding(base64.NoPadding).EncodeToString(data)
 }
