@@ -51,6 +51,9 @@ func CreateJWT(secret string, data Payload) (string, error) {
 	signature := h.Sum(nil)
 	signatureB64 := base64UrlEncode(signature)
 
+	jwt := hearderB64 + "." + paylodB64 + "." + signatureB64
+
+	return jwt, nil
 }
 
 func base64UrlEncode(data []byte) string {
