@@ -29,10 +29,14 @@ func CreateJWT(data Payload) (string, error) {
 		return "", err
 	}
 
+	hearderB64 := base64UrlEncode(byteArrHeader)
+
 	byteArrData, err := json.Marshal(data)
 	if err != nil {
 		return "", err
 	}
+
+	paylodB64 := base64UrlEncode(byteArrData)
 }
 
 func base64UrlEncode(data []byte) string {
