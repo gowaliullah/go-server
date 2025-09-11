@@ -1,9 +1,9 @@
 package main
 
 import (
-	"crypto/hmac"
-	"crypto/sha256"
 	"fmt"
+
+	"github.com/gowaliullah/ecommerce/util"
 )
 
 func main() {
@@ -35,15 +35,32 @@ func practice() {
 		fmt.Println(hash)
 	*/
 
-	secret := []byte("my-secret")
-	message := []byte("Hello World")
+	/*
+		secret := []byte("my-secret")
+		message := []byte("Hello World")
 
-	h := hmac.New(sha256.New, secret)
-	h.Write(message)
+		h := hmac.New(sha256.New, secret)
+		h.Write(message)
 
-	text := h.Sum(nil)
+		text := h.Sum(nil)
 
-	fmt.Println(text)
+		fmt.Println(text)
+	*/
+
+	jwt, err := util.CreateJWT("my-secret", util.Payload{
+		Sub:         45,
+		FirstName:   "Habiba",
+		LastName:    "akar",
+		Email:       "habiba@gmail.com",
+		IsShopOwner: false,
+	})
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println(jwt)
 
 }
 
