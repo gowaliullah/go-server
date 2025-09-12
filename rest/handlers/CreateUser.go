@@ -9,6 +9,7 @@ import (
 	"github.com/gowaliullah/ecommerce/util"
 )
 
+// CreateUser
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	var newUser database.User
 	decoder := json.NewDecoder(r.Body)
