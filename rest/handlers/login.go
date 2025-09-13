@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/gowaliullah/ecommerce/config"
 	"github.com/gowaliullah/ecommerce/database"
 	"github.com/gowaliullah/ecommerce/util"
 )
@@ -28,6 +29,19 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	usr := database.Find(reqLogin.Email, reqLogin.Password)
 	if err == nil {
 		http.Error(w, "Invalid credentials", http.StatusBadRequest)
+	}
+
+	cnf := config.GetConfig()
+
+	accessToken, err := util.CreateJWT(cnf.JwtSecretKey, util.Payload{
+		Sub:       usr.ID,
+		FirstName: usr.FirstName,
+		LastName:  usr.LastName,
+	})
+
+	if err != nil {
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
 	}
 
 	util.SendData(w, usr, http.StatusOK)

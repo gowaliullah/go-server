@@ -57,9 +57,10 @@ func loadConfig() {
 	}
 
 	config = Config{
-		Version:     version,
-		ServiceName: serviceName,
-		HttpPort:    int(port), // type casting ()
+		Version:      version,
+		ServiceName:  serviceName,
+		HttpPort:     int(port), // type casting ()
+		JwtSecretKey: jwtSecretKey,
 	}
 
 }
