@@ -3,13 +3,14 @@ package main
 import (
 	"fmt"
 
+	"github.com/gowaliullah/ecommerce/cmd"
 	"github.com/gowaliullah/ecommerce/util"
 )
 
 func main() {
 
-	// cmd.Serve()
-	practice()
+	cmd.Serve()
+	// practice()
 
 }
 

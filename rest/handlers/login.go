@@ -27,9 +27,9 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	usr := database.Find(reqLogin.Email, reqLogin.Password)
-	if err == nil {
-		http.Error(w, "Invalid credentials", http.StatusBadRequest)
-	}
+	// if err == nil {
+	// 	http.Error(w, "Invalid credentials", http.StatusBadRequest)
+	// }
 
 	cnf := config.GetConfig()
 
@@ -43,6 +43,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
-
-	util.SendData(w, usr, http.StatusOK)
+	fmt.Println(accessToken)
+	util.SendData(w, accessToken, http.StatusOK)
 }
