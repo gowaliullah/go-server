@@ -37,6 +37,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		Sub:       usr.ID,
 		FirstName: usr.FirstName,
 		LastName:  usr.LastName,
+		Email:     usr.Email,
 	})
 
 	if err != nil {
