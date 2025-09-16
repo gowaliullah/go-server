@@ -4,12 +4,29 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/gowaliullah/ecommerce/database"
 	"github.com/gowaliullah/ecommerce/util"
 )
 
 func CreateProduct(w http.ResponseWriter, r *http.Request) {
+
+	header := r.Header.Get("Authorization")
+
+	if header == "" {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+
+	headerArr := strings.Split(header, " ")
+
+	if len(header) != 2 {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+
+	fmt.Println("_______ token :", headerArr)
 
 	var newProduct database.Product
 
