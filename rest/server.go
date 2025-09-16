@@ -7,17 +7,24 @@ import (
 	"strconv"
 
 	"github.com/gowaliullah/ecommerce/config"
+	"github.com/gowaliullah/ecommerce/rest/handlers/product"
+	"github.com/gowaliullah/ecommerce/rest/handlers/user"
 	middleware "github.com/gowaliullah/ecommerce/rest/middlewares"
 )
 
 type Server struct {
+	productHandler *product.Handler
+	userHandler    *user.Handler
 }
 
-func NewServer() *Server {
-	return &Server{}
+func NewServer(productHandler *product.Handler, userHandler *user.Handler) *Server {
+	return &Server{
+		productHandler: productHandler,
+		userHandler:    userHandler,
+	}
 }
 
-func Start(cnf config.Config) {
+func (server *Server) Start(cnf config.Config) {
 	mux := http.NewServeMux()
 	manager := middleware.NewManager()
 
@@ -28,6 +35,9 @@ func Start(cnf config.Config) {
 	)
 	wrappedMux := manager.WrapMux(mux)
 	// initRoutes(mux, manager)
+
+	server.productHandler.RegisterRoutes(mux, manager)
+	server.userHandler.RegisterRoutes(mux, manager)
 
 	addr := ":" + strconv.Itoa(cnf.HttpPort) // type casting (int64 to string)
 

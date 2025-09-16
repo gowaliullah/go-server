@@ -3,13 +3,18 @@ package cmd
 import (
 	"github.com/gowaliullah/ecommerce/config"
 	"github.com/gowaliullah/ecommerce/rest"
+	"github.com/gowaliullah/ecommerce/rest/handlers/product"
+	"github.com/gowaliullah/ecommerce/rest/handlers/user"
 )
 
 func Serve() {
 
 	cnf := config.GetConfig()
+	productHandler := product.NewHaneder()
+	userHandler := user.NewFunc()
 
-	rest.Start(cnf)
+	server := rest.NewServer(productHandler, userHandler)
+	server.Start(cnf)
 
 }
 
