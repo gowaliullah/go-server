@@ -10,6 +10,13 @@ import (
 	middleware "github.com/gowaliullah/ecommerce/rest/middlewares"
 )
 
+type Server struct {
+}
+
+func NewServer() *Server {
+	return &Server{}
+}
+
 func Start(cnf config.Config) {
 	mux := http.NewServeMux()
 	manager := middleware.NewManager()
@@ -20,7 +27,7 @@ func Start(cnf config.Config) {
 		middleware.Logger,
 	)
 	wrappedMux := manager.WrapMux(mux)
-	initRoutes(mux, manager)
+	// initRoutes(mux, manager)
 
 	addr := ":" + strconv.Itoa(cnf.HttpPort) // type casting (int64 to string)
 
