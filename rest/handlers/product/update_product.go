@@ -1,4 +1,4 @@
-package handlers
+package product
 
 import (
 	"encoding/json"
@@ -10,7 +10,7 @@ import (
 	"github.com/gowaliullah/ecommerce/util"
 )
 
-func UpdateProduct(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	productId := r.PathValue("id")
 	id, err := strconv.Atoi(productId)
 	if err != nil {
