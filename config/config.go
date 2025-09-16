@@ -9,7 +9,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-var config Config
+var config *Config
 
 type Config struct {
 	Version      string
@@ -56,7 +56,7 @@ func loadConfig() {
 		os.Exit(1)
 	}
 
-	config = Config{
+	config = &Config{
 		Version:      version,
 		ServiceName:  serviceName,
 		HttpPort:     int(port), // type casting ()
@@ -66,6 +66,9 @@ func loadConfig() {
 }
 
 func GetConfig() *Config { // tight coupling
-	loadConfig()
-	return &config
+
+	if config == nil {
+		loadConfig()
+	}
+	return config
 }
