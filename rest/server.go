@@ -15,16 +15,22 @@ import (
 type Server struct {
 	productHandler *product.Handler
 	userHandler    *user.Handler
+	cnf            config.Config
 }
 
-func NewServer(productHandler *product.Handler, userHandler *user.Handler) *Server {
+func NewServer(
+	productHandler *product.Handler,
+	userHandler *user.Handler,
+	cnf config.Config,
+) *Server {
 	return &Server{
 		productHandler: productHandler,
 		userHandler:    userHandler,
+		cnf:            cnf,
 	}
 }
 
-func (server *Server) Start(cnf config.Config) {
+func (server *Server) Start() {
 	mux := http.NewServeMux()
 	manager := middleware.NewManager()
 
@@ -39,7 +45,7 @@ func (server *Server) Start(cnf config.Config) {
 	server.productHandler.RegisterRoutes(mux, manager)
 	server.userHandler.RegisterRoutes(mux, manager)
 
-	addr := ":" + strconv.Itoa(cnf.HttpPort) // type casting (int64 to string)
+	addr := ":" + strconv.Itoa(server.cnf.HttpPort) // type casting (int64 to string)
 
 	fmt.Println("server running on PORT:", addr)
 	err := http.ListenAndServe(addr, wrappedMux)
