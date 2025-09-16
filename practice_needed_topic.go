@@ -1,10 +1,29 @@
 package main
 
+/*
+
+	1. network interface card --> NIC
+	2. socket received buffer
+	3. write buffer
+	3. electronic magnify
+	4. file descriptor --> 0 < 1, 2, 3, 4...........
+
+	6. router - wifi adaptar - NIC - write buffer - interapct kurnel - copy write buffer and all thing is stored in socket received buffer
+	send buffer kurnel niye read buffer ar kase dai
+
+	NIC  electromagnatic kore router ar kase patai
+
+	entity gulai muloto resourse hoy
+
+*/
+
 import (
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/base64"
 	"fmt"
+
+	"github.com/gowaliullah/ecommerce/util"
 )
 
 func practice_needed_topic() {
@@ -21,6 +40,8 @@ func practice_needed_topic() {
 
 	fmt.Println(b64Str)
 
+	// ============ //
+
 	data := []byte("Hello")
 	hash := sha256.Sum256(data)
 	fmt.Println(hash)
@@ -34,5 +55,22 @@ func practice_needed_topic() {
 	text := h.Sum(nil)
 
 	fmt.Println(text)
+
+	// ============ //
+
+	jwt, err := util.CreateJWT("my-secret", util.Payload{
+		Sub:         45,
+		FirstName:   "Habiba",
+		LastName:    "akar",
+		Email:       "habiba@gmail.com",
+		IsShopOwner: false,
+	})
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println(jwt)
 
 }

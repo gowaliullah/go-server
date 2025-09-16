@@ -2,6 +2,6 @@ package product
 
 type Handler struct{}
 
-func NewHaneder() *Handler {
+func NewHandler() *Handler {
 	return &Handler{}
 }
