@@ -65,7 +65,7 @@ func loadConfig() {
 
 }
 
-func GetConfig() Config {
+func GetConfig() Config { // tight coupling
 	loadConfig()
 	return config
 }
