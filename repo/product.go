@@ -8,15 +8,6 @@ type Product struct {
 	ImgURL      string  `json:"imageUrl"`
 }
 
-func Get(prdId int) *Product {
-	for _, product := range productList {
-		if product.ID == prdId {
-			return &product
-		}
-	}
-	return nil
-}
-
 func List() []Product {
 	return productList
 }
@@ -48,8 +39,13 @@ func (r *productRepo) Create(p Product) (*Product, error) {
 	return &p, nil
 
 }
-func (r *productRepo) Get() {
-
+func (r *productRepo) Get(prdId int) (*Product, error) {
+	for _, product := range r.productList {
+		if product.ID == prdId {
+			return &product, nil
+		}
+	}
+	return nil, nil
 }
 func (r *productRepo) List() {
 
