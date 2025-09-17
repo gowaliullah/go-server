@@ -17,18 +17,28 @@ type UserRepo interface {
 	Update(user User) (*User, error)
 }
 
-var users []User
+type userRepo struct {
+	users []*User
+}
 
-func (u User) Store() User {
-	if u.ID != 0 {
-		return u
+func NewUser() UserRepo {
+	return &userRepo{}
+}
+
+func (r *userRepo) Create(user User) (*User, error) {
+	if user.ID != 0 {
+		return &user, nil
 	}
 
-	u.ID = len(users) + 1
+	user.ID = len(r.users) + 1
 
-	users = append(users, u)
-	return u
+	r.users = append(r.users, &user)
+	return &user, nil
 }
+func (r *userRepo) Get(userId int) (*User, error)   {}
+func (r *userRepo) List() ([]*User, error)          {}
+func (r *userRepo) Delete(userId int) error         {}
+func (r *userRepo) Update(user User) (*User, error) {}
 
 func Find(eamil, pass string) *User {
 	for _, u := range users {
