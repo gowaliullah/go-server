@@ -51,12 +51,3 @@ func (r *userRepo) Find(email, pass string) (*User, error) {
 // func (r *userRepo) List() ([]*User, error)          {}
 // func (r *userRepo) Delete(userId int) error         {}
 // func (r *userRepo) Update(user User) (*User, error) {}
-
-func Find(eamil, pass string) *User {
-	for _, u := range users {
-		if u.Email == eamil && u.Password == pass {
-			return &u
-		}
-	}
-	return nil
-}
