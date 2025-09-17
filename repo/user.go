@@ -35,10 +35,20 @@ func (r *userRepo) Create(user User) (*User, error) {
 	r.users = append(r.users, &user)
 	return &user, nil
 }
-func (r *userRepo) Get(userId int) (*User, error)   {}
-func (r *userRepo) List() ([]*User, error)          {}
-func (r *userRepo) Delete(userId int) error         {}
-func (r *userRepo) Update(user User) (*User, error) {}
+
+func (r *userRepo) Find(email, pass string) (*User, error) {
+	for _, u := range r.users {
+		if u.Email == email && u.Password == pass {
+			return u, nil
+		}
+	}
+	return nil, nil
+}
+
+// func (r *userRepo) Get(userId int) (*User, error)              {}
+// func (r *userRepo) List() ([]*User, error)          {}
+// func (r *userRepo) Delete(userId int) error         {}
+// func (r *userRepo) Update(user User) (*User, error) {}
 
 func Find(eamil, pass string) *User {
 	for _, u := range users {
