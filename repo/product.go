@@ -8,10 +8,6 @@ type Product struct {
 	ImgURL      string  `json:"imageUrl"`
 }
 
-func List() []Product {
-	return productList
-}
-
 type ProductRepo interface {
 	Create(p Product) (*Product, error)
 	Get(prdId int) (*Product, error)
@@ -21,7 +17,7 @@ type ProductRepo interface {
 }
 
 type productRepo struct {
-	productList []Product
+	productList []*Product
 }
 
 // constructor or constructor functions
@@ -35,24 +31,37 @@ func NewProductRepo() ProductRepo {
 func (r *productRepo) Create(p Product) (*Product, error) {
 
 	p.ID = len(r.productList) + 1
-	r.productList = append(r.productList, p)
+	r.productList = append(r.productList, &p)
 	return &p, nil
 
 }
+
 func (r *productRepo) Get(prdId int) (*Product, error) {
 	for _, product := range r.productList {
 		if product.ID == prdId {
-			return &product, nil
+			return product, nil
 		}
 	}
 	return nil, nil
 }
-func (r *productRepo) List() {
 
+func (r *productRepo) List() ([]*Product, error) {
+	return r.productList, nil
 }
-func (r *productRepo) Delete() {
 
+func (r *productRepo) Delete(prdId int) error {
+	var tempList []*Product
+
+	for _, product := range r.productList {
+		if product.ID != prdId {
+			tempList = append(tempList, product)
+		}
+	}
+	r.productList = tempList
+
+	return nil
 }
+
 func (r *productRepo) Update() {
 
 }
@@ -98,5 +107,5 @@ func generateInitialProducts(r *productRepo) {
 		ImgURL:      "https://example.com/images/watermelon.jpg",
 	}
 
-	r.productList = append(r.productList, prd1, prd2, prd3, prd4, prd5)
+	r.productList = append(r.productList, &prd1, &prd2, &prd3, &prd4, &prd5)
 }
