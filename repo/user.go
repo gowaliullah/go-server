@@ -11,10 +11,12 @@ type User struct {
 
 type UserRepo interface {
 	Create(user User) (*User, error)
-	Get(userId int) (*User, error)
-	List() ([]*User, error)
-	Delete(userId int) error
-	Update(user User) (*User, error)
+	Find(email, pass string) (*User, error)
+
+	// Get(userId int) (*User, error)
+	// List() ([]*User, error)
+	// Delete(userId int) error
+	// Update(user User) (*User, error)
 }
 
 type userRepo struct {
