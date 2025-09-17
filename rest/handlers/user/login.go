@@ -6,7 +6,6 @@ import (
 	"net/http"
 
 	"github.com/gowaliullah/ecommerce/config"
-	"github.com/gowaliullah/ecommerce/database"
 	"github.com/gowaliullah/ecommerce/util"
 )
 
@@ -16,9 +15,9 @@ type ReqLogin struct {
 }
 
 func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
-	var reqLogin ReqLogin
+	var req ReqLogin
 	decoder := json.NewDecoder(r.Body)
-	err := decoder.Decode(&reqLogin)
+	err := decoder.Decode(&req)
 
 	if err != nil {
 		fmt.Println(err)
@@ -26,10 +25,11 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	usr := database.Find(reqLogin.Email, reqLogin.Password)
-	// if err == nil {
-	// 	http.Error(w, "Invalid credentials", http.StatusBadRequest)
-	// }
+	usr, err := h.userRepo.Find(req.Email, req.Password)
+	if err != nil {
+		util.SendError(w, http.StatusUnauthorized, "Unauthorized")
+		return
+	}
 
 	cnf := config.GetConfig()
 
