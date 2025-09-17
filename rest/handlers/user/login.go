@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gowaliullah/ecommerce/config"
 	"github.com/gowaliullah/ecommerce/util"
 )
 
@@ -31,9 +30,7 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	cnf := config.GetConfig()
-
-	accessToken, err := util.CreateJWT(cnf.JwtSecretKey, util.Payload{
+	accessToken, err := util.CreateJWT(h.cnf.JwtSecretKey, util.Payload{
 		Sub:       usr.ID,
 		FirstName: usr.FirstName,
 		LastName:  usr.LastName,
