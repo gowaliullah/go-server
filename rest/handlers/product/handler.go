@@ -10,7 +10,7 @@ type Handler struct {
 	productRepo repo.ProductRepo
 }
 
-func NewHandler(middlewares *middleware.Middleware) *Handler {
+func NewHandler(middlewares *middleware.Middlewares, productRepo repo.ProductRepo) *Handler {
 	return &Handler{
 		middlewares: middlewares,
 		productRepo: productRepo,
