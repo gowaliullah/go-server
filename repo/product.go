@@ -8,12 +8,25 @@ type Product struct {
 	ImgURL      string  `json:"imageUrl"`
 }
 
+func Get(prdId int) *Product {
+	for _, product := range productList {
+		if product.ID == prdId {
+			return &product
+		}
+	}
+	return nil
+}
+
+func List() []Product {
+	return productList
+}
+
 type ProductRepo interface {
-	Create()
-	Get()
-	List()
-	Delete()
-	Update()
+	Create(p Product) (*Product, error)
+	Get(prdId int) (*Product, error)
+	List() []*Product
+	Delete(prdId int) error
+	Update(p Product) (*Product, error)
 }
 
 type productRepo struct {
@@ -22,22 +35,29 @@ type productRepo struct {
 
 // constructor or constructor functions
 func NewProductRepo() ProductRepo {
-	return productRepo{}
+	repo := &productRepo{}
+
+	generateInitialProducts(repo)
+	return repo
 }
 
-func (r productRepo) Create() {
+func (r *productRepo) Create(p Product) (*Product, error) {
+
+	p.ID = len(r.productList) + 1
+	r.productList = append(r.productList, p)
+	return &p, nil
 
 }
-func (r productRepo) Get() {
+func (r *productRepo) Get() {
 
 }
-func (r productRepo) List() {
+func (r *productRepo) List() {
 
 }
-func (r productRepo) Delete() {
+func (r *productRepo) Delete() {
 
 }
-func (r productRepo) Update() {
+func (r *productRepo) Update() {
 
 }
 
