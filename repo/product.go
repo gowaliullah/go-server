@@ -11,7 +11,7 @@ type Product struct {
 type ProductRepo interface {
 	Create(p Product) (*Product, error)
 	Get(prdId int) (*Product, error)
-	List() []*Product
+	List() ([]*Product, error)
 	Delete(prdId int) error
 	Update(p Product) (*Product, error)
 }
