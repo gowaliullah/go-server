@@ -62,8 +62,14 @@ func (r *productRepo) Delete(prdId int) error {
 	return nil
 }
 
-func (r *productRepo) Update() {
+func (r *productRepo) Update(prd Product) (*Product, error) {
+	for idx, p := range r.productList {
+		if p.ID == prd.ID {
+			r.productList[idx] = &prd // productList[0]
+		}
+	}
 
+	return &prd, nil
 }
 
 func generateInitialProducts(r *productRepo) {
