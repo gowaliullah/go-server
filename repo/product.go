@@ -1,5 +1,7 @@
 package repo
 
+import "github.com/jmoiron/sqlx"
+
 type Product struct {
 	ID          int     `json:"_id"`
 	Title       string  `json:"title"`
@@ -17,21 +19,40 @@ type ProductRepo interface {
 }
 
 type productRepo struct {
-	productList []*Product
+	db sqlx.DB
 }
 
 // constructor or constructor functions
-func NewProductRepo() ProductRepo {
-	repo := &productRepo{}
-
-	generateInitialProducts(repo)
-	return repo
+func NewProductRepo(db sqlx.DB) ProductRepo {
+	return &productRepo{
+		db: db,
+	}
 }
 
 func (r *productRepo) Create(p Product) (*Product, error) {
 
-	p.ID = len(r.productList) + 1
-	r.productList = append(r.productList, &p)
+	query := `
+		INSERT INTO products (
+			title,
+			description,
+			price,
+			imageUrl
+		) VALUES (
+			$1,
+			$2,
+			$3,
+			$4 
+		)
+			RETURNING id
+	`
+
+	row := r.db.QueryRow(query, p.Title, p.Description, p.Price, p.ImgURL)
+
+	err := row.Scan(&p.ID)
+	if err != nil {
+		return nil, err
+	}
+
 	return &p, nil
 
 }
@@ -70,48 +91,4 @@ func (r *productRepo) Update(prd Product) (*Product, error) {
 	}
 
 	return &prd, nil
-}
-
-func generateInitialProducts(r *productRepo) {
-	prd1 := Product{
-		ID:          1,
-		Title:       "Orange",
-		Description: "It's very delicious and full of vitamin C.",
-		Price:       108.00,
-		ImgURL:      "https://example.com/images/orange.jpg",
-	}
-
-	prd2 := Product{
-		ID:          2,
-		Title:       "Apple",
-		Description: "Crisp and sweet red apples.",
-		Price:       120.50,
-		ImgURL:      "https://example.com/images/apple.jpg",
-	}
-
-	prd3 := Product{
-		ID:          3,
-		Title:       "Banana",
-		Description: "Rich in potassium and easy to digest.",
-		Price:       60.00,
-		ImgURL:      "https://example.com/images/banana.jpg",
-	}
-
-	prd4 := Product{
-		ID:          4,
-		Title:       "Mango",
-		Description: "The king of fruits, sweet and juicy.",
-		Price:       150.75,
-		ImgURL:      "https://example.com/images/mango.jpg",
-	}
-
-	prd5 := Product{
-		ID:          5,
-		Title:       "Watermelon",
-		Description: "Refreshing and hydrating summer fruit.",
-		Price:       200.00,
-		ImgURL:      "https://example.com/images/watermelon.jpg",
-	}
-
-	r.productList = append(r.productList, &prd1, &prd2, &prd3, &prd4, &prd5)
 }
