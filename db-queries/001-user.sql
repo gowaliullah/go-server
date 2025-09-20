@@ -1,8 +1,15 @@
+-- Active: 1755325089603@@127.0.0.1@5432@goserver
+
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password TEXT NOT NULL,
-    is_shop_owner BOOLEAN DEFAULT FALSE
+    is_shop_owner BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
+
+
+DROP TABLE users;
