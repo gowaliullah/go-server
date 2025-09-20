@@ -1,13 +1,17 @@
 package repo
 
-import "github.com/jmoiron/sqlx"
+import (
+	"database/sql"
+
+	"github.com/jmoiron/sqlx"
+)
 
 type Product struct {
-	ID          int     `json:"_id"`
-	Title       string  `json:"title"`
-	Description string  `json:"description"`
-	Price       float64 `json:"price"`
-	ImgURL      string  `json:"imageUrl"`
+	ID          int     `json:"id" db:"id"`
+	Title       string  `json:"title" db:"title"`
+	Description string  `json:"description" db:"description"`
+	Price       float64 `json:"price" db:"price"`
+	ImgURL      string  `json:"imageUrl" db:"imageUrl"`
 }
 
 type ProductRepo interface {
@@ -58,12 +62,26 @@ func (r *productRepo) Create(p Product) (*Product, error) {
 }
 
 func (r *productRepo) Get(prdId int) (*Product, error) {
-	for _, product := range r.productList {
-		if product.ID == prdId {
-			return product, nil
+	var prd Product
+	query := `
+		SELECT 
+			id, 
+			title,
+			description,
+			price,
+			imageUrl
+		FROM products
+		WHERE id = $1
+	`
+	err := r.db.Get(&prd, query, prdId)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, nil
 		}
+		return nil, err
 	}
-	return nil, nil
+
+	return &prd, nil
 }
 
 func (r *productRepo) List() ([]*Product, error) {
