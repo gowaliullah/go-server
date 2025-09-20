@@ -85,7 +85,22 @@ func (r *productRepo) Get(prdId int) (*Product, error) {
 }
 
 func (r *productRepo) List() ([]*Product, error) {
-	return r.productList, nil
+	var prdlist []*Product
+	query := `
+		SELECT 
+			id, 
+			title,
+			description,
+			price,
+			imageUrl
+		FROM products
+	`
+	err := r.db.Select(&prdlist, query)
+	if err != nil {
+		return nil, err
+	}
+
+	return prdlist, nil
 }
 
 func (r *productRepo) Delete(prdId int) error {
