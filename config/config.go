@@ -11,11 +11,21 @@ import (
 
 var config *Config
 
+type DBConfig struct {
+	Host          string
+	Port          int
+	Name          string
+	User          string
+	Password      string
+	EnableSSLMODE bool
+}
+
 type Config struct {
 	Version      string
 	ServiceName  string
 	HttpPort     int
 	JwtSecretKey string
+	DB           DBConfig
 }
 
 func loadConfig() {

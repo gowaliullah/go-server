@@ -103,6 +103,18 @@ func (r *productRepo) List() ([]*Product, error) {
 	return prdlist, nil
 }
 
+func (r *productRepo) Delete(prdId int) error {
+
+	query := `DELETE FROM products WHERE id = $1`
+	_, err := r.db.Exec(query, prdId)
+
+	if err != nil {
+		return nil
+	}
+
+	return nil
+}
+
 func (r *productRepo) Update(prd Product) (*Product, error) {
 	query := `
 		UPDATE products SET
