@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/gowaliullah/ecommerce/cmd"
+	"github.com/gowaliullah/basic-ecommerce/cmd"
 )
 
 func main() {

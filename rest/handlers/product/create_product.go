@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gowaliullah/ecommerce/domain"
-	"github.com/gowaliullah/ecommerce/util"
+	"github.com/gowaliullah/basic-ecommerce/domain"
+	"github.com/gowaliullah/basic-ecommerce/util"
 )
 
 type ReqCreatedProduct struct {

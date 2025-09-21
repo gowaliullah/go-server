@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gowaliullah/ecommerce/util"
+	"github.com/gowaliullah/basic-ecommerce/util"
 )
 
 type ReqLogin struct {

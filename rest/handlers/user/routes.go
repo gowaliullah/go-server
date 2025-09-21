@@ -3,7 +3,7 @@ package user
 import (
 	"net/http"
 
-	middleware "github.com/gowaliullah/ecommerce/rest/middlewares"
+	middleware "github.com/gowaliullah/basic-ecommerce/rest/middlewares"
 )
 
 func (h *Handler) RegisterRoutes(mux *http.ServeMux, manager *middleware.Manager) {

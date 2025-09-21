@@ -3,7 +3,7 @@ package db
 import (
 	"fmt"
 
-	"github.com/gowaliullah/ecommerce/config"
+	"github.com/gowaliullah/basic-ecommerce/config"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 )

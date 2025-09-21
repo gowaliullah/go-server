@@ -1,7 +1,7 @@
 package product
 
 import (
-	middleware "github.com/gowaliullah/ecommerce/rest/middlewares"
+	middleware "github.com/gowaliullah/basic-ecommerce/rest/middlewares"
 )
 
 type Handler struct {

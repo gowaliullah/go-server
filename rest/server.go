@@ -6,10 +6,10 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/gowaliullah/ecommerce/config"
-	"github.com/gowaliullah/ecommerce/rest/handlers/product"
-	"github.com/gowaliullah/ecommerce/rest/handlers/user"
-	middleware "github.com/gowaliullah/ecommerce/rest/middlewares"
+	"github.com/gowaliullah/basic-ecommerce/config"
+	"github.com/gowaliullah/basic-ecommerce/rest/handlers/product"
+	"github.com/gowaliullah/basic-ecommerce/rest/handlers/user"
+	middleware "github.com/gowaliullah/basic-ecommerce/rest/middlewares"
 )
 
 type Server struct {

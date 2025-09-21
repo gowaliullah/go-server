@@ -5,8 +5,8 @@ import (
 
 	"github.com/jmoiron/sqlx"
 
-	"github.com/gowaliullah/ecommerce/domain"
-	"github.com/gowaliullah/ecommerce/product"
+	"github.com/gowaliullah/basic-ecommerce/domain"
+	"github.com/gowaliullah/basic-ecommerce/product"
 )
 
 type ProductRepo interface {

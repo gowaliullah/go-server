@@ -1,6 +1,6 @@
 package middleware
 
-import "github.com/gowaliullah/ecommerce/config"
+import "github.com/gowaliullah/basic-ecommerce/config"
 
 type Middlewares struct {
 	cnf *config.Config

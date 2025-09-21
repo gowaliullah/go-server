@@ -1,7 +1,7 @@
 package user
 
 import (
-	"github.com/gowaliullah/ecommerce/config"
+	"github.com/gowaliullah/basic-ecommerce/config"
 )
 
 type Handler struct {

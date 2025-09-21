@@ -23,7 +23,7 @@ import (
 	"encoding/base64"
 	"fmt"
 
-	"github.com/gowaliullah/ecommerce/util"
+	"github.com/gowaliullah/basic-ecommerce/util"
 )
 
 func practice_needed_topic() {

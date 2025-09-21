@@ -7,8 +7,8 @@ import (
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 
-	"github.com/gowaliullah/ecommerce/domain"
-	"github.com/gowaliullah/ecommerce/user"
+	"github.com/gowaliullah/basic-ecommerce/domain"
+	"github.com/gowaliullah/basic-ecommerce/user"
 )
 
 type UserRepo interface {

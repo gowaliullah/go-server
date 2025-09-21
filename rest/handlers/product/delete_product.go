@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/gowaliullah/ecommerce/util"
+	"github.com/gowaliullah/basic-ecommerce/util"
 )
 
 func (h *Handler) DeleteProduct(w http.ResponseWriter, r *http.Request) {

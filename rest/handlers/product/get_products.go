@@ -3,7 +3,7 @@ package product
 import (
 	"net/http"
 
-	"github.com/gowaliullah/ecommerce/util"
+	"github.com/gowaliullah/basic-ecommerce/util"
 )
 
 func (h *Handler) GetProducts(w http.ResponseWriter, r *http.Request) {

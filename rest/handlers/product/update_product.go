@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/gowaliullah/ecommerce/domain"
-	"github.com/gowaliullah/ecommerce/util"
+	"github.com/gowaliullah/basic-ecommerce/domain"
+	"github.com/gowaliullah/basic-ecommerce/util"
 )
 
 func (h *Handler) UpdateProduct(w http.ResponseWriter, r *http.Request) {

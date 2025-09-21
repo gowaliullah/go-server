@@ -1,6 +1,6 @@
 package user
 
-import "github.com/gowaliullah/ecommerce/domain"
+import "github.com/gowaliullah/basic-ecommerce/domain"
 
 type service struct {
 	usrRepo UserRepo

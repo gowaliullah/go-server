@@ -4,15 +4,15 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/gowaliullah/ecommerce/config"
-	"github.com/gowaliullah/ecommerce/infra/db"
-	"github.com/gowaliullah/ecommerce/product"
-	"github.com/gowaliullah/ecommerce/repo"
-	"github.com/gowaliullah/ecommerce/rest"
-	prdHandler "github.com/gowaliullah/ecommerce/rest/handlers/product"
-	usrHandler "github.com/gowaliullah/ecommerce/rest/handlers/user"
-	middleware "github.com/gowaliullah/ecommerce/rest/middlewares"
-	"github.com/gowaliullah/ecommerce/user"
+	"github.com/gowaliullah/basic-ecommerce/config"
+	"github.com/gowaliullah/basic-ecommerce/infra/db"
+	"github.com/gowaliullah/basic-ecommerce/product"
+	"github.com/gowaliullah/basic-ecommerce/repo"
+	"github.com/gowaliullah/basic-ecommerce/rest"
+	prdHandler "github.com/gowaliullah/basic-ecommerce/rest/handlers/product"
+	usrHandler "github.com/gowaliullah/basic-ecommerce/rest/handlers/user"
+	middleware "github.com/gowaliullah/basic-ecommerce/rest/middlewares"
+	"github.com/gowaliullah/basic-ecommerce/user"
 )
 
 func Serve() {
@@ -23,8 +23,6 @@ func Serve() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-
-	fmt.Println(dbCon)
 
 	err = db.MigrateDB(dbCon, "./migrations")
 	if err != nil {

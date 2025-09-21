@@ -1,4 +1,4 @@
-module github.com/gowaliullah/ecommerce
+module github.com/gowaliullah/basic-ecommerce
 
 go 1.23.0
 

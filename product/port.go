@@ -1,8 +1,8 @@
 package product
 
 import (
-	"github.com/gowaliullah/ecommerce/domain"
-	pdrHanlar "github.com/gowaliullah/ecommerce/rest/handlers/product"
+	"github.com/gowaliullah/basic-ecommerce/domain"
+	pdrHanlar "github.com/gowaliullah/basic-ecommerce/rest/handlers/product"
 )
 
 type Service interface {

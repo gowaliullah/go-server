@@ -1,8 +1,8 @@
 package user
 
 import (
-	"github.com/gowaliullah/ecommerce/domain"
-	serviceHandler "github.com/gowaliullah/ecommerce/rest/handlers/user"
+	"github.com/gowaliullah/basic-ecommerce/domain"
+	serviceHandler "github.com/gowaliullah/basic-ecommerce/rest/handlers/user"
 )
 
 type Service interface {

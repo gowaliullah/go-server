@@ -1,6 +1,6 @@
 package product
 
-import "github.com/gowaliullah/ecommerce/domain"
+import "github.com/gowaliullah/basic-ecommerce/domain"
 
 type Service interface {
 	Create(domain.Product) (*domain.Product, error)
