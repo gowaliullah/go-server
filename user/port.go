@@ -1,6 +1,13 @@
 package user
 
-import "github.com/gowaliullah/ecommerce/domain"
+import (
+	"github.com/gowaliullah/ecommerce/domain"
+	serviceHandler "github.com/gowaliullah/ecommerce/rest/handlers/user"
+)
+
+type Service interface {
+	serviceHandler.Servece // embedding
+}
 
 type UserRepo interface {
 	Create(user domain.User) (*domain.User, error)
