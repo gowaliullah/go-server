@@ -4,7 +4,6 @@ import (
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/base64"
-	"fmt"
 	"net/http"
 	"strings"
 )
@@ -53,8 +52,6 @@ func (m *Middlewares) AuthenticateJwt(next http.Handler) http.Handler {
 			http.Error(w, "Unauthorized..! tui hacker", http.StatusUnauthorized)
 			return
 		}
-
-		fmt.Println("_______ token :")
 
 		next.ServeHTTP(w, r)
 	})

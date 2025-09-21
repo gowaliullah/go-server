@@ -34,7 +34,7 @@ func (h *Handler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 		Title:       req.Title,
 		Description: req.Description,
 		Price:       req.Price,
-		ImgURL:      req.ImgURL,
+		ImageUrl:    req.ImgURL,
 	})
 
 	if err != nil {

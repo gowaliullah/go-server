@@ -1,6 +1,7 @@
 package product
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -16,6 +17,7 @@ func (h *Handler) GetProduct(w http.ResponseWriter, r *http.Request) {
 	}
 
 	product, err := h.productRepo.Get(id)
+	fmt.Println(product, err)
 	if product == nil {
 		util.SendError(w, http.StatusNotFound, "Product not found")
 		return
