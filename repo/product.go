@@ -40,7 +40,7 @@ func (r *productRepo) Create(p Product) (*Product, error) {
 			title,
 			description,
 			price,
-			image_url
+			imageUrl
 		) VALUES (
 			$1,
 			$2,
