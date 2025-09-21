@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gowaliullah/ecommerce/repo"
+	"github.com/gowaliullah/ecommerce/domain"
 	"github.com/gowaliullah/ecommerce/util"
 )
 
@@ -28,7 +28,7 @@ func (h *Handler) CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	createdUser, err := h.userRepo.Create(repo.User{
+	createdUser, err := h.svc.Create(domain.User{
 		FirstName:   req.FirstName,
 		LastName:    req.LastName,
 		Email:       req.Email,
