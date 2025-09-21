@@ -5,7 +5,7 @@ CREATE TABLE products (
     title VARCHAR(255) NOT NULL,
     description TEXT,
     price DOUBLE PRECISION NOT NULL,
-    imageUrl TEXT,
+    image_url TEXT,
     created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
