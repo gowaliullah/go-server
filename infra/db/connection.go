@@ -8,10 +8,9 @@ import (
 	_ "github.com/lib/pq"
 )
 
-func GetConnectionString(cnf config.DBConfig) string {
-
+func GetConnectionString(cnf *config.DBConfig) string {
 	connString := fmt.Sprintf(
-		"user=%c password=%c host=%c port=%c dbname=%c",
+		"user=%s password=%s host=%s port=%d dbname=%s",
 		cnf.User,
 		cnf.Password,
 		cnf.Host,
@@ -25,7 +24,7 @@ func GetConnectionString(cnf config.DBConfig) string {
 	return connString
 }
 
-func NewConnection(cnf config.DBConfig) (*sqlx.DB, error) {
+func NewConnection(cnf *config.DBConfig) (*sqlx.DB, error) {
 	dbSource := GetConnectionString(cnf)
 	dbCon, err := sqlx.Connect("postgres", dbSource)
 	if err != nil {

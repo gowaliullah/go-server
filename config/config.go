@@ -66,13 +66,15 @@ func loadConfig() {
 		os.Exit(1)
 	}
 
-	dbHost := os.Getenv("HOST")
+	// start DB config
+
+	dbHost := os.Getenv("DB_HOST")
 	if dbHost == "" {
 		log.Fatal("DB HOST is required")
 		os.Exit(1)
 	}
 
-	dbPort := os.Getenv("PORT")
+	dbPort := os.Getenv("DB_PORT")
 	if dbPort == "" {
 		log.Fatal("DB PORT is required")
 		os.Exit(1)
@@ -80,34 +82,36 @@ func loadConfig() {
 
 	dbPrt, err := strconv.ParseInt(dbPort, 10, 64)
 	if err != nil {
-		log.Fatal("DB post must be a number")
+		fmt.Println("DB post must be a number")
 		os.Exit(1)
 	}
 
-	dbName := os.Getenv("NAME")
+	dbName := os.Getenv("DB_NAME")
 	if dbName == "" {
 		log.Fatal("DB NAME is required")
 		os.Exit(1)
 	}
 
-	dbUser := os.Getenv("USER")
+	dbUser := os.Getenv("DB_USER")
 	if dbUser == "" {
 		log.Fatal("DB USER is required")
 		os.Exit(1)
 	}
 
-	dbPassword := os.Getenv("PASSWORD")
+	dbPassword := os.Getenv("DB_PASSWORD")
 	if dbPassword == "" {
 		log.Fatal("PASSWORD is required")
 		os.Exit(1)
 	}
 
-	enableSslMode := os.Getenv("ENABLE_SSL_MODE")
+	enableSslMode := os.Getenv("DB_ENABLE_SSL_MODE")
 	enblSSMode, err := strconv.ParseBool(enableSslMode)
 	if err != nil {
 		fmt.Println("Invalid ssl mode value", err)
 		os.Exit(1)
 	}
+
+	fmt.Println(dbPrt)
 
 	dbConfig := &DBConfig{
 		Host:          dbHost,
