@@ -6,6 +6,7 @@ import (
 
 	"github.com/gowaliullah/ecommerce/config"
 	"github.com/gowaliullah/ecommerce/infra/db"
+	"github.com/gowaliullah/ecommerce/product"
 	"github.com/gowaliullah/ecommerce/repo"
 	"github.com/gowaliullah/ecommerce/rest"
 	prdHandler "github.com/gowaliullah/ecommerce/rest/handlers/product"
@@ -37,10 +38,11 @@ func Serve() {
 
 	// domains
 	usrSrv := user.NewService(userRepo)
+	prdSrc := product.NewService(productRepo)
 
 	middlewares := middleware.NewMiddlewares(cnf)
 
-	productHandler := prdHandler.NewHandler(middlewares, productRepo)
+	productHandler := prdHandler.NewHandler(middlewares, prdSrc)
 	userHandler := usrHandler.NewHandler(cnf, usrSrv)
 
 	server := rest.NewServer(cnf, productHandler, userHandler)
