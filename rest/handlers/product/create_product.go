@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gowaliullah/ecommerce/repo"
+	"github.com/gowaliullah/ecommerce/domain"
 	"github.com/gowaliullah/ecommerce/util"
 )
 
@@ -27,7 +27,7 @@ func (h *Handler) CreateProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	createdProduct, err := h.productRepo.Create(repo.Product{
+	createdProduct, err := h.svc.Create(domain.Product{
 		Title:       req.Title,
 		Description: req.Description,
 		Price:       req.Price,
