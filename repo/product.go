@@ -124,7 +124,7 @@ func (r *productRepo) Update(prd Product) (*Product, error) {
 			image_url=$4
 		WHERE id=$5
 	`
-	row := r.db.QueryRow(query, prd.Title, prd.Description, prd.Price, prd.ImageUrl)
+	row := r.db.QueryRow(query, prd.Title, prd.Description, prd.Price, prd.ImageUrl, prd.ID)
 	err := row.Err()
 	if err != nil {
 		return nil, err
