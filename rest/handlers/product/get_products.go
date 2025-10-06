@@ -77,9 +77,14 @@ func (h *Handler) GetProducts(w http.ResponseWriter, r *http.Request) {
 		// wg.Add(-1)
 	}()
 
-	wg.Wait()
+	wg.Wait() // if the hign 32 bits = 0, this goroutine will not sleep
 
 	// time.Sleep(2 * time.Second)
 
 	util.SendPage(w, productList, page, limit, cnt)
+	go hey(&wg)
+}
+
+func hey(wg *sync.WaitGroup) {
+	wg.Wait()
 }
