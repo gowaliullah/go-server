@@ -99,6 +99,23 @@ func (r *productRepo) List(page, limit int64) ([]*domain.Product, error) {
 	return prdlist, nil
 }
 
+func (r *productRepo) Count() (int64, error) {
+
+	query := `
+		SELECT 
+			COUNT(*)
+		FROM products
+	`
+	var count int64
+
+	row := r.db.QueryRow(query).Scan(&count)
+	if row != nil {
+		return 0, row
+	}
+
+	return count, nil
+}
+
 func (r *productRepo) Delete(id int) error {
 
 	query := `DELETE FROM products WHERE id =$1`

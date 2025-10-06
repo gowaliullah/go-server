@@ -25,11 +25,11 @@ func (h *Handler) GetProducts(w http.ResponseWriter, r *http.Request) {
 	page, _ := strconv.ParseInt(pageAsString, 10, 32)
 	limit, _ := strconv.ParseInt(limitAsString, 10, 32)
 
-	if page == 0 {
+	if page <= 0 {
 		page = 1
 	}
 
-	if limit == 0 {
+	if limit <= 0 {
 		limit = 10
 	}
 
@@ -39,10 +39,18 @@ func (h *Handler) GetProducts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	cnt, err := h.svc.Count()
+	if err != nil {
+		util.SendError(w, http.StatusInternalServerError, "Internal server error")
+		return
+	}
+
 	paginatedData := Pagination{
-		Data:  productList,
-		Page:  page,
-		Limit: limit,
+		Data:       productList,
+		Page:       page,
+		Limit:      limit,
+		TotalItems: cnt,
+		TotalPages: cnt / limit,
 	}
 
 	util.SendData(w, paginatedData, http.StatusOK)
