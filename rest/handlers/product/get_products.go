@@ -1,8 +1,11 @@
 package product
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
+	"sync"
+	"time"
 
 	"github.com/gowaliullah/basic-ecommerce/util"
 )
@@ -35,6 +38,31 @@ func (h *Handler) GetProducts(w http.ResponseWriter, r *http.Request) {
 		util.SendError(w, http.StatusInternalServerError, "Internal server error")
 		return
 	}
+
+	var wg sync.WaitGroup
+
+	wg.Add(1)
+	go func() {
+		cnt1, _ := h.svc.Count()
+		fmt.Print(cnt1)
+		wg.Add(-1)
+	}()
+
+	wg.Add(1)
+	go func() {
+		cnt1, _ := h.svc.Count()
+		fmt.Print(cnt1)
+		wg.Add(-1)
+	}()
+
+	wg.Add(1)
+	go func() {
+		cnt1, _ := h.svc.Count()
+		fmt.Print(cnt1)
+		wg.Add(-1)
+	}()
+
+	time.Sleep(2 * time.Second)
 
 	util.SendPage(w, productList, page, limit, cnt)
 }
