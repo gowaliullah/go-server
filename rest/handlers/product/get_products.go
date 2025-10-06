@@ -4,21 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/gowaliullah/basic-ecommerce/domain"
 	"github.com/gowaliullah/basic-ecommerce/util"
 )
-
-type paginatedData struct {
-	Data       []*domain.Product `json:"data"`
-	Pagination Pagination        `json:"pagination"`
-}
-
-type Pagination struct {
-	Page       int64 `json:"page"`
-	Limit      int64 `json:"limit"`
-	TotalItems int64 `json:"totalItems"`
-	TotalPages int64 `json:"totalPages"`
-}
 
 func (h *Handler) GetProducts(w http.ResponseWriter, r *http.Request) {
 
@@ -49,15 +36,5 @@ func (h *Handler) GetProducts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	pagData := paginatedData{
-		Data: productList,
-		Pagination: Pagination{
-			Page:       page,
-			Limit:      limit,
-			TotalItems: cnt,
-			TotalPages: cnt / limit,
-		},
-	}
-
-	util.SendData(w, pagData, http.StatusOK)
+	util.SendPage(w, productList, page, limit, cnt)
 }
