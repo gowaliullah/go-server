@@ -8,12 +8,16 @@ import (
 	"github.com/gowaliullah/basic-ecommerce/util"
 )
 
-type Pagination struct {
+type paginatedData struct {
 	Data       []*domain.Product `json:"data"`
-	Page       int64             `json:"page"`
-	Limit      int64             `json:"limit"`
-	TotalItems int64             `json:"totalItems"`
-	TotalPages int64             `json:"totalPages"`
+	Pagination Pagination        `json:"pagination"`
+}
+
+type Pagination struct {
+	Page       int64 `json:"page"`
+	Limit      int64 `json:"limit"`
+	TotalItems int64 `json:"totalItems"`
+	TotalPages int64 `json:"totalPages"`
 }
 
 func (h *Handler) GetProducts(w http.ResponseWriter, r *http.Request) {
@@ -45,13 +49,15 @@ func (h *Handler) GetProducts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	paginatedData := Pagination{
-		Data:       productList,
-		Page:       page,
-		Limit:      limit,
-		TotalItems: cnt,
-		TotalPages: cnt / limit,
+	pagData := paginatedData{
+		Data: productList,
+		Pagination: Pagination{
+			Page:       page,
+			Limit:      limit,
+			TotalItems: cnt,
+			TotalPages: cnt / limit,
+		},
 	}
 
-	util.SendData(w, paginatedData, http.StatusOK)
+	util.SendData(w, pagData, http.StatusOK)
 }
