@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"strconv"
 	"sync"
-	"time"
 
 	"github.com/gowaliullah/basic-ecommerce/util"
 )
@@ -62,7 +61,9 @@ func (h *Handler) GetProducts(w http.ResponseWriter, r *http.Request) {
 		wg.Add(-1)
 	}()
 
-	time.Sleep(2 * time.Second)
+	wg.Wait()
+
+	// time.Sleep(2 * time.Second)
 
 	util.SendPage(w, productList, page, limit, cnt)
 }
