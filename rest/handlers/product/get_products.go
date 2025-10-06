@@ -4,8 +4,17 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/gowaliullah/basic-ecommerce/domain"
 	"github.com/gowaliullah/basic-ecommerce/util"
 )
+
+type Pagination struct {
+	Data       []*domain.Product `json:"data"`
+	Page       int64             `json:"page"`
+	Limit      int64             `json:"limit"`
+	TotalItems int64             `json:"totalItems"`
+	TotalPages int64             `json:"totalPages"`
+}
 
 func (h *Handler) GetProducts(w http.ResponseWriter, r *http.Request) {
 
