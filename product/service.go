@@ -19,7 +19,7 @@ func (svc *service) Get(id int) (*domain.Product, error) {
 	return svc.prductRepo.Get(id)
 }
 func (svc *service) List(page, limit int64) ([]*domain.Product, error) {
-	return svc.prductRepo.List()
+	return svc.prductRepo.List(page, limit)
 }
 func (svc *service) Update(prd domain.Product) (*domain.Product, error) {
 	return svc.prductRepo.Update(prd)

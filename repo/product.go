@@ -75,7 +75,10 @@ func (r *productRepo) Get(id int) (*domain.Product, error) {
 	return &prd, nil
 }
 
-func (r *productRepo) List() ([]*domain.Product, error) {
+func (r *productRepo) List(page, limit int64) ([]*domain.Product, error) {
+
+	offset := ((page - 1) * limit) + 1
+
 	var prdlist []*domain.Product
 	query := `
 		SELECT 
@@ -85,8 +88,10 @@ func (r *productRepo) List() ([]*domain.Product, error) {
 			price,
 			image_url
 		FROM products
+		LIMIT $1
+		OFFSET $2	
 	`
-	err := r.db.Select(&prdlist, query)
+	err := r.db.Select(&prdlist, query, limit, offset)
 	if err != nil {
 		return nil, err
 	}
