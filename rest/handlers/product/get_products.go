@@ -38,6 +38,19 @@ func (h *Handler) GetProducts(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	/*
+		wg := WaitGroup{
+			noCopy: noCopy{},
+			state : atomic.Unit64{
+				_ : noCopy{},
+				_ : align64,
+				v : 0
+			},
+			sema : 0
+		}
+
+	*/
+
 	var wg sync.WaitGroup
 
 	wg.Add(3)
