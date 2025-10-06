@@ -38,5 +38,12 @@ func (h *Handler) GetProducts(w http.ResponseWriter, r *http.Request) {
 		util.SendError(w, http.StatusInternalServerError, "Internal server error")
 		return
 	}
-	util.SendData(w, productList, http.StatusOK)
+
+	paginatedData := Pagination{
+		Data:  productList,
+		Page:  page,
+		Limit: limit,
+	}
+
+	util.SendData(w, paginatedData, http.StatusOK)
 }
