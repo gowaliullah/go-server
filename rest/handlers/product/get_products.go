@@ -40,25 +40,28 @@ func (h *Handler) GetProducts(w http.ResponseWriter, r *http.Request) {
 
 	var wg sync.WaitGroup
 
-	wg.Add(1)
+	wg.Add(3)
 	go func() {
+		defer wg.Done()
+
 		cnt1, _ := h.svc.Count()
 		fmt.Print(cnt1)
-		wg.Add(-1)
 	}()
 
-	wg.Add(1)
+	// wg.Add(1)
 	go func() {
+		defer wg.Done()
 		cnt1, _ := h.svc.Count()
 		fmt.Print(cnt1)
-		wg.Add(-1)
+
 	}()
 
-	wg.Add(1)
+	// wg.Add(1)
 	go func() {
+		defer wg.Done()
 		cnt1, _ := h.svc.Count()
 		fmt.Print(cnt1)
-		wg.Add(-1)
+		// wg.Add(-1)
 	}()
 
 	wg.Wait()
